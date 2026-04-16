@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustiChain — Pharmaceutical Pitch</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0f1a;
+    --paper: #f5f0e8;
+    --teal: #00b4a0;
+    --teal-dark: #007a6e;
+    --gold: #c9a84c;
+    --red: #d64045;
+    --muted: #6b7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── SLIDE BASE ── */
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vw 8vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  .slide > * { position: relative; z-index: 1; }
+
+  /* ── SLIDE 1: HERO ── */
+  #s1 {
+    background: var(--ink);
+    justify-content: space-between;
+    padding-top: 10vh;
+    padding-bottom: 8vh;
+  }
+
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 14vw, 13rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .hero-title span {
+    color: var(--teal);
+    display: block;
+  }
+
+  .hero-sub {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    color: var(--gold);
+    margin-top: 2rem;
+    max-width: 600px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-stat-row {
+    display: flex;
+    gap: 4rem;
+    margin-top: 6vh;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+
+  .hero-stat { }
+  .hero-stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--teal);
+    line-height: 1;
+  }
+  .hero-stat .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .hero-line {
+    position: absolute;
+    right: 8vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60vh;
+    background: linear-gradient(to bottom, transparent, var(--teal), transparent);
+    opacity: 0;
+    animation: fadeIn 1.5s 1s forwards;
+  }
+
+  .hero-chain {
+    position: absolute;
+    right: 6vw;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+
+  .chain-node {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 12px var(--teal);
+  }
+
+  .chain-node:nth-child(odd) { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+
+  /* ── SLIDE 2: PROBLEM ── */
+  #s2 { background: #0e0a06; }
+
+  .slide-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+
+  .big-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(6rem, 18vw, 16rem);
+    line-height: 0.85;
+    color: var(--red);
+    opacity: 0.15;
+    position: absolute;
+    right: 5vw;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.15;
+    margin-bottom: 3rem;
+    max-width: 700px;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+
+  .prob-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid var(--red);
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(6px);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .prob-card:hover {
+    border-left-color: var(--teal);
+    background: rgba(0,180,160,0.05);
+  }
+
+  .prob-card .stat {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .prob-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  /* ── SLIDE 3: SOLUTION ── */
+  #s3 { background: #050f0e; }
+
+  .solution-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5vw;
+    align-items: center;
+    max-width: 1100px;
+  }
+
+  @media (max-width: 768px) {
+    .solution-wrap { grid-template-columns: 1fr; }
+    .hero-stat-row { gap: 2rem; flex-wrap: wrap; }
+    .hero-title { font-size: clamp(4rem, 18vw, 8rem); }
+  }
+
+  .solution-left .section-title { margin-bottom: 1.5rem; }
+
+  .solution-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #a0a8b0;
+    max-width: 480px;
+  }
+
+  .solution-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    align-items: flex-start;
+    transition: background 0.3s;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--teal);
+    opacity: 0.3;
+    line-height: 1;
+    min-width: 2.5rem;
+    transition: opacity 0.3s;
+  }
+
+  .step:hover .step-num { opacity: 1; }
+
+  .step-body h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    color: var(--paper);
+  }
+
+  .step-body p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── SLIDE 4: HOW IT WORKS ── */
+  #s4 { background: var(--ink); }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+    max-width: 1000px;
+  }
+
+  .flow-node {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+    padding: 2rem 1rem;
+    position: relative;
+  }
+
+  .flow-icon {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: rgba(0,180,160,0.1);
+    border: 1px solid var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.4rem;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+
+  .flow-node:hover .flow-icon {
+    background: rgba(0,180,160,0.25);
+    box-shadow: 0 0 20px rgba(0,180,160,0.3);
+  }
+
+  .flow-node h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .flow-node p {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .flow-arrow {
+    font-size: 1.2rem;
+    color: var(--teal);
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+
+  /* ── SLIDE 5: IMPACT ── */
+  #s5 { background: #04120f; }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 950px;
+  }
+
+  .impact-card {
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(0,180,160,0.15);
+    background: rgba(0,180,160,0.04);
+    text-align: center;
+    transition: transform 0.3s, border-color 0.3s;
+    cursor: default;
+  }
+
+  .impact-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0,180,160,0.5);
+  }
+
+  .impact-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+
+  .impact-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .impact-card p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── SLIDE 6: CTA ── */
+  #s6 {
+    background: var(--ink);
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .cta-pre {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 2rem;
+  }
+
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 9rem);
+    line-height: 0.9;
+    color: var(--paper);
+  }
+
+  .cta-title em {
+    font-style: normal;
+    color: var(--teal);
+  }
+
+  .cta-sub {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--gold);
+    margin-top: 2rem;
+    max-width: 500px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    margin-top: 3rem;
+    padding: 1rem 3rem;
+    border: 1px solid var(--teal);
+    color: var(--teal);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .cta-btn:hover {
+    background: var(--teal);
+    color: var(--ink);
+  }
+
+  /* ── NAV DOTS ── */
+  .nav {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    z-index: 100;
+  }
+
+  .nav a {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: background 0.3s, transform 0.3s;
+    display: block;
+  }
+
+  .nav a:hover { background: var(--teal); transform: scale(1.4); }
+
+  /* ── DIVIDER LINE ── */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--teal);
+    margin-bottom: 2rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Scroll-triggered reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* stagger children */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0.05s; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.15s; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.25s; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.35s; }
+  .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.45s; }
+
+  /* Glow pulse on teal accents */
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 6px rgba(0,180,160,0.3); }
+    50%       { box-shadow: 0 0 20px rgba(0,180,160,0.7); }
+  }
+
+  .chain-node { animation: glow 2.5s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="nav">
+  <a href="#s1" title="Intro"></a>
+  <a href="#s2" title="Problem"></a>
+  <a href="#s3" title="Solution"></a>
+  <a href="#s4" title="How It Works"></a>
+  <a href="#s5" title="Impact"></a>
+  <a href="#s6" title="CTA"></a>
+</nav>
+
+<!-- ── SLIDE 1: HERO ── -->
+<section class="slide" id="s1">
+  <div class="hero-title">
+    Trusti<span>Chain</span>
+  </div>
+
+  <div class="hero-sub">
+    Blockchain-verified pharmaceuticals — every pill authenticated, every life protected.
+  </div>
+
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="num">500K</div>
+      <div class="label">Deaths / Year from Counterfeit Drugs</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">$200B</div>
+      <div class="label">Global Counterfeit Drug Market</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">10%</div>
+      <div class="label">Of Global Medicines Are Fake</div>
+    </div>
+  </div>
+
+  <div class="hero-line"></div>
+  <div class="hero-chain">
+    <div class="chain-node"></div>
+    <div class="chain-node"></div>
+    <div class="chain-node"></div>
+    <div class="chain-node"></div>
+    <div class="chain-node"></div>
+  </div>
+</section>
+
+<!-- ── SLIDE 2: PROBLEM ── -->
+<section class="slide" id="s2">
+  <div class="slide-label">01 — The Problem</div>
+
+  <div class="big-number">10%</div>
+
+  <div class="section-title reveal">
+    The pharmaceutical supply chain is <em style="font-style:italic; color:var(--red)">broken</em> — and people are dying for it.
+  </div>
+
+  <div class="problem-grid reveal-stagger">
+    <div class="prob-card">
+      <div class="stat">500K+</div>
+      <p>People die annually from counterfeit medications — more than malaria kills in many regions.</p>
+    </div>
+    <div class="prob-card">
+      <div class="stat">1 in 10</div>
+      <p>Medical products in low- and middle-income countries are substandard or falsified.</p>
+    </div>
+    <div class="prob-card">
+      <div class="stat">$200B</div>
+      <p>Lost annually by the pharmaceutical industry to counterfeits — eroding brand trust.</p>
+    </div>
+    <div class="prob-card">
+      <div class="stat">Zero</div>
+      <p>Reliable, real-time verification tools available to pharmacists or patients at point of dispensing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 3: SOLUTION ── -->
+<section class="slide" id="s3">
+  <div class="slide-label">02 — Our Solution</div>
+
+  <div class="solution-wrap">
+    <div class="solution-left reveal">
+      <div class="divider"></div>
+      <div class="section-title">
+        A tamper-proof digital identity for every drug that exists.
+      </div>
+      <p class="solution-desc">
+        TrustiChain assigns a unique, blockchain-registered identity to every pharmaceutical batch at the point of manufacture. That identity travels with the product — immutably — through every hand it passes through, until it reaches the patient.
+      </p>
+    </div>
+
+    <div class="solution-right reveal-stagger">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h4>Digital Birth Certificate</h4>
+          <p>Each batch receives a QR/NFC token written to the blockchain at manufacturing. Unforgeable from day one.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h4>Chain-of-Custody Logging</h4>
+          <p>Every transfer — manufacturer, distributor, wholesaler, pharmacy — is recorded as an immutable on-chain event.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h4>Last-Mile Verification</h4>
+          <p>Pharmacists and patients scan to instantly verify authenticity before any drug is dispensed or ingested.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h4>Counterfeit Flagging</h4>
+          <p>Any product that fails verification is flagged system-wide in real time — stopping spread before harm occurs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 4: HOW IT WORKS ── -->
+<section class="slide" id="s4">
+  <div class="slide-label">03 — How It Works</div>
+
+  <div class="section-title reveal" style="max-width:600px">
+    From factory floor to the patient's hand — every step verified.
+  </div>
+
+  <div class="flow-row reveal-stagger">
+    <div class="flow-node">
+      <div class="flow-icon">🏭</div>
+      <h4>Manufacturer</h4>
+      <p>Batch minted on blockchain with unique cryptographic ID</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-icon">🚚</div>
+      <h4>Distributor</h4>
+      <p>Transfer recorded; chain of custody begins</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-icon">🏪</div>
+      <h4>Pharmacy</h4>
+      <p>Scans product; blockchain confirms authentic pathway</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-icon">📱</div>
+      <h4>Patient</h4>
+      <p>Scans QR code; receives real-time ✅ or ❌ alert</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-icon">🛡️</div>
+      <h4>Protected</h4>
+      <p>Counterfeit blocked at last mile — life saved</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 5: IMPACT ── -->
+<section class="slide" id="s5">
+  <div class="slide-label">04 — The Impact</div>
+
+  <div class="section-title reveal" style="max-width:700px">
+    When every pill tells the truth, people stop dying from lies.
+  </div>
+
+  <div class="impact-grid reveal-stagger">
+    <div class="impact-card">
+      <div class="icon">❤️‍🩹</div>
+      <h3>Lives Saved</h3>
+      <p>Eliminate the counterfeit pathway at the last mile — the moment it matters most.</p>
+    </div>
+    <div class="impact-card">
+      <div class="icon">🔗</div>
+      <h3>Full Traceability</h3>
+      <p>Every product traceable from source to patient — in seconds, not weeks.</p>
+    </div>
+    <div class="impact-card">
+      <div class="icon">⚡</div>
+      <h3>Real-Time Alerts</h3>
+      <p>Counterfeit detected → flagged system-wide instantly, stopping spread across regions.</p>
+    </div>
+    <div class="impact-card">
+      <div class="icon">🌍</div>
+      <h3>Global Scale</h3>
+      <p>Deployable across emerging markets where counterfeit risk is highest and infrastructure is weakest.</p>
+    </div>
+    <div class="impact-card">
+      <div class="icon">💊</div>
+      <h3>Brand Trust</h3>
+      <p>Manufacturers reclaim $200B in losses and rebuild consumer confidence in their products.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 6: CTA ── -->
+<section class="slide" id="s6">
+  <div class="cta-pre">The Ask</div>
+
+  <div class="cta-title reveal">
+    Every Pill.<br><em>Every Person.</em><br>Protected.
+  </div>
+
+  <div class="cta-sub reveal">
+    Join us in building the infrastructure that makes counterfeit pharmaceuticals impossible — not just illegal.
+  </div>
+
+  <div class="reveal">
+    <button class="cta-btn" onclick="openModal()">Partner With TrustiChain →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     QUESTIONNAIRE MODAL
+══════════════════════════════════════════ -->
+<div id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="modal">
+
+    <!-- Progress bar -->
+    <div id="prog-track"><div id="prog-bar"></div></div>
+
+    <!-- Close -->
+    <button id="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- Step counter -->
+    <div id="step-counter"></div>
+
+    <!-- Slides container -->
+    <div id="slides-wrap">
+
+      <!-- STEP 0: Welcome -->
+      <div class="q-slide" data-step="0">
+        <div class="q-icon">🔗</div>
+        <h2 class="q-title">Let's build your<br><span>TrustiChain solution.</span></h2>
+        <p class="q-desc">Answer 7 quick questions so we can design the right product for your organisation. Takes under 2 minutes.</p>
+        <button class="q-next-btn" onclick="goTo(1)">Start →</button>
+      </div>
+
+      <!-- STEP 1: Role -->
+      <div class="q-slide" data-step="1">
+        <div class="q-eyebrow">Question 1 of 7</div>
+        <h2 class="q-title">What best describes your organisation?</h2>
+        <div class="q-options" id="q1">
+          <div class="q-opt" data-val="manufacturer" onclick="selectOpt(this,'q1')">🏭 <span>Pharmaceutical Manufacturer</span></div>
+          <div class="q-opt" data-val="distributor" onclick="selectOpt(this,'q1')">🚚 <span>Distributor / Wholesaler</span></div>
+          <div class="q-opt" data-val="pharmacy" onclick="selectOpt(this,'q1')">🏪 <span>Pharmacy / Hospital Chain</span></div>
+          <div class="q-opt" data-val="regulator" onclick="selectOpt(this,'q1')">🏛️ <span>Regulatory Body / Government</span></div>
+          <div class="q-opt" data-val="other" onclick="selectOpt(this,'q1')">🌐 <span>Other Healthcare Org</span></div>
+        </div>
+        <button class="q-next-btn" onclick="nextStep()" disabled>Continue →</button>
+      </div>
+
+      <!-- STEP 2: Scale -->
+      <div class="q-slide" data-step="2">
+        <div class="q-eyebrow">Question 2 of 7</div>
+        <h2 class="q-title">How large is your operation?</h2>
+        <div class="q-options" id="q2">
+          <div class="q-opt" data-val="small" onclick="selectOpt(this,'q2')">🌱 <span>Small — Under 50 staff</span></div>
+          <div class="q-opt" data-val="mid" onclick="selectOpt(this,'q2')">🏢 <span>Mid-size — 50–500 staff</span></div>
+          <div class="q-opt" data-val="large" onclick="selectOpt(this,'q2')">🏙️ <span>Large — 500–5,000 staff</span></div>
+          <div class="q-opt" data-val="enterprise" onclick="selectOpt(this,'q2')">🌍 <span>Enterprise — 5,000+ / Multinational</span></div>
+        </div>
+        <button class="q-next-btn" onclick="nextStep()" disabled>Continue →</button>
+      </div>
+
+      <!-- STEP 3: Pain point -->
+      <div class="q-slide" data-step="3">
+        <div class="q-eyebrow">Question 3 of 7</div>
+        <h2 class="q-title">What's your biggest challenge right now?</h2>
+        <p class="q-desc">Select all that apply.</p>
+        <div class="q-options multi" id="q3">
+          <div class="q-opt multi" data-val="counterfeits" onclick="toggleOpt(this)">⚠️ <span>Counterfeit products in supply chain</span></div>
+          <div class="q-opt multi" data-val="traceability" onclick="toggleOpt(this)">🔍 <span>Lack of end-to-end traceability</span></div>
+          <div class="q-opt multi" data-val="recalls" onclick="toggleOpt(this)">📋 <span>Slow or inefficient product recalls</span></div>
+          <div class="q-opt multi" data-val="compliance" onclick="toggleOpt(this)">📜 <span>Regulatory compliance gaps</span></div>
+          <div class="q-opt multi" data-val="brand" onclick="toggleOpt(this)">💊 <span>Brand / reputation damage from fakes</span></div>
+        </div>
+        <button class="q-next-btn" onclick="nextStep()">Continue →</button>
+      </div>
+
+      <!-- STEP 4: Geography -->
+      <div class="q-slide" data-step="4">
+        <div class="q-eyebrow">Question 4 of 7</div>
+        <h2 class="q-title">Where do you primarily operate?</h2>
+        <div class="q-options" id="q4">
+          <div class="q-opt" data-val="africa" onclick="selectOpt(this,'q4')">🌍 <span>Africa</span></div>
+          <div class="q-opt" data-val="asia" onclick="selectOpt(this,'q4')">🌏 <span>Asia / Southeast Asia</span></div>
+          <div class="q-opt" data-val="europe" onclick="selectOpt(this,'q4')">🇪🇺 <span>Europe</span></div>
+          <div class="q-opt" data-val="americas" onclick="selectOpt(this,'q4')">🌎 <span>Americas</span></div>
+          <div class="q-opt" data-val="global" onclick="selectOpt(this,'q4')">🌐 <span>Global / Multi-region</span></div>
+        </div>
+        <button class="q-next-btn" onclick="nextStep()" disabled>Continue →</button>
+      </div>
+
+      <!-- STEP 5: Priority feature -->
+      <div class="q-slide" data-step="5">
+        <div class="q-eyebrow">Question 5 of 7</div>
+        <h2 class="q-title">Which feature matters most to you?</h2>
+        <div class="q-options" id="q5">
+          <div class="q-opt" data-val="verification" onclick="selectOpt(this,'q5')">✅ <span>Real-time product verification</span></div>
+          <div class="q-opt" data-val="dashboard" onclick="selectOpt(this,'q5')">📊 <span>Chain-of-custody dashboard</span></div>
+          <div class="q-opt" data-val="alerts" onclick="selectOpt(this,'q5')">🚨 <span>Counterfeit alert system</span></div>
+          <div class="q-opt" data-val="analytics" onclick="selectOpt(this,'q5')">📈 <span>Supply chain analytics & reporting</span></div>
+          <div class="q-opt" data-val="patient" onclick="selectOpt(this,'q5')">📱 <span>Patient-facing mobile verification</span></div>
+        </div>
+        <button class="q-next-btn" onclick="nextStep()" disabled>Continue →</button>
+      </div>
+
+      <!-- STEP 6: Timeline -->
+      <div class="q-slide" data-step="6">
+        <div class="q-eyebrow">Question 6 of 7</div>
+        <h2 class="q-title">When are you looking to deploy?</h2>
+        <div class="q-options" id="q6">
+          <div class="q-opt" data-val="asap" onclick="selectOpt(this,'q6')">⚡ <span>As soon as possible</span></div>
+          <div class="q-opt" data-val="3months" onclick="selectOpt(this,'q6')">📅 <span>Within 3 months</span></div>
+          <div class="q-opt" data-val="6months" onclick="selectOpt(this,'q6')">🗓️ <span>Within 6 months</span></div>
+          <div class="q-opt" data-val="exploring" onclick="selectOpt(this,'q6')">🔭 <span>Still exploring / no set date</span></div>
+        </div>
+        <button class="q-next-btn" onclick="nextStep()" disabled>Continue →</button>
+      </div>
+
+      <!-- STEP 7: Contact -->
+      <div class="q-slide" data-step="7">
+        <div class="q-eyebrow">Question 7 of 7</div>
+        <h2 class="q-title">Where should we send your tailored proposal?</h2>
+        <div class="q-fields">
+          <div class="q-field">
+            <label>Full Name</label>
+            <input type="text" id="f-name" placeholder="Dr. Jane Osei" />
+          </div>
+          <div class="q-field">
+            <label>Company</label>
+            <input type="text" id="f-company" placeholder="PharmaCorp Ltd." />
+          </div>
+          <div class="q-field">
+            <label>Email</label>
+            <input type="email" id="f-email" placeholder="jane@pharmacorp.com" />
+          </div>
+          <div class="q-field">
+            <label>Phone <span style="color:var(--muted-modal);font-size:0.7rem">(optional)</span></label>
+            <input type="tel" id="f-phone" placeholder="+1 555 000 0000" />
+          </div>
+        </div>
+        <button class="q-next-btn" onclick="submitForm()">Get My Custom Proposal →</button>
+      </div>
+
+      <!-- STEP 8: Thank you -->
+      <div class="q-slide" data-step="8">
+        <div class="q-icon success-pulse">✅</div>
+        <h2 class="q-title">You're on the chain.</h2>
+        <p class="q-desc">We've captured your requirements. A TrustiChain specialist will send your custom proposal within <strong>24 hours</strong>.</p>
+        <div id="summary-box"></div>
+        <button class="q-next-btn" onclick="closeModal()" style="margin-top:2rem">Close →</button>
+      </div>
+
+    </div><!-- /slides-wrap -->
+  </div><!-- /modal -->
+</div><!-- /overlay -->
+
+<style>
+/* ── MODAL OVERLAY ── */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,10,18,0.92);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#modal-overlay.open { display: flex; }
+
+#modal {
+  background: #0d1520;
+  border: 1px solid rgba(0,180,160,0.2);
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 3rem 2.8rem 2.5rem;
+  box-shadow: 0 0 60px rgba(0,180,160,0.12), 0 40px 80px rgba(0,0,0,0.6);
+  animation: modalIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+@keyframes modalIn {
+  from { opacity:0; transform: translateY(30px) scale(0.97); }
+  to   { opacity:1; transform: none; }
+}
+
+/* Progress bar */
+#prog-track {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+}
+
+#prog-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Close */
+#modal-close {
+  position: absolute;
+  top: 1.2rem; right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  transition: color 0.2s;
+}
+#modal-close:hover { color: var(--paper); }
+
+/* Step counter */
+#step-counter {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+  min-height: 1rem;
+}
+
+/* Slides */
+#slides-wrap { position: relative; }
+
+.q-slide { display: none; }
+.q-slide.active {
+  display: block;
+  animation: slideIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+@keyframes slideIn {
+  from { opacity:0; transform: translateX(20px); }
+  to   { opacity:1; transform: none; }
+}
+
+.q-icon {
+  font-size: 2.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.success-pulse { animation: pulse 1.5s ease infinite; }
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.q-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1rem;
+}
+
+.q-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  line-height: 1.2;
+  color: var(--paper);
+  margin-bottom: 0.8rem;
+}
+
+.q-title span { color: var(--teal); }
+
+.q-desc {
+  font-size: 0.88rem;
+  color: #7a8591;
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+
+/* Options */
+.q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.8rem;
+}
+
+.q-opt {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  color: #b0bbc5;
+  user-select: none;
+}
+
+.q-opt:hover {
+  border-color: rgba(0,180,160,0.4);
+  background: rgba(0,180,160,0.06);
+  color: var(--paper);
+}
+
+.q-opt.selected {
+  border-color: var(--teal);
+  background: rgba(0,180,160,0.12);
+  color: var(--paper);
+}
+
+.q-opt span { flex: 1; }
+
+/* Fields */
+.q-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.q-field label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.q-field input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.q-field input:focus {
+  border-color: var(--teal);
+  background: rgba(0,180,160,0.05);
+}
+
+.q-field input::placeholder { color: #3d4d5a; }
+
+/* Next button */
+.q-next-btn {
+  background: transparent;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  padding: 0.85rem 2.2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  width: 100%;
+}
+
+.q-next-btn:hover:not(:disabled) {
+  background: var(--teal);
+  color: var(--ink);
+}
+
+.q-next-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Summary box */
+#summary-box {
+  margin-top: 1.5rem;
+  border: 1px solid rgba(0,180,160,0.2);
+  padding: 1.2rem 1.5rem;
+  background: rgba(0,180,160,0.04);
+}
+
+#summary-box p {
+  font-size: 0.78rem;
+  color: #7a8591;
+  line-height: 1.9;
+}
+
+#summary-box strong { color: var(--teal); font-weight: 500; }
+
+/* scrollbar */
+#modal::-webkit-scrollbar { width: 4px; }
+#modal::-webkit-scrollbar-track { background: transparent; }
+#modal::-webkit-scrollbar-thumb { background: rgba(0,180,160,0.3); }
+</style>
+
+<script>
+  // ── Scroll-triggered reveals ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+  // ── Modal state ──
+  const TOTAL_STEPS = 7;
+  let currentStep = 0;
+  const answers = {};
+
+  function openModal() {
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    goTo(0);
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  function goTo(step) {
+    currentStep = step;
+    // hide all
+    document.querySelectorAll('.q-slide').forEach(s => s.classList.remove('active'));
+    // show current
+    const slide = document.querySelector(`.q-slide[data-step="${step}"]`);
+    if (slide) slide.classList.add('active');
+    // update progress
+    const pct = step === 0 ? 0 : Math.round((step / TOTAL_STEPS) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    // step counter
+    const counter = document.getElementById('step-counter');
+    counter.textContent = (step > 0 && step <= TOTAL_STEPS) ? `Step ${step} of ${TOTAL_STEPS}` : '';
+    // scroll modal to top
+    document.getElementById('modal').scrollTop = 0;
+  }
+
+  function nextStep() { goTo(currentStep + 1); }
+
+  // Single-select
+  function selectOpt(el, groupId) {
+    document.querySelectorAll(`#${groupId} .q-opt`).forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[groupId] = el.dataset.val;
+    // enable continue button
+    const btn = el.closest('.q-slide').querySelector('.q-next-btn');
+    if (btn) btn.disabled = false;
+  }
+
+  // Multi-select
+  function toggleOpt(el) {
+    el.classList.toggle('selected');
+  }
+
+  function submitForm() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    if (!name || !email) {
+      document.getElementById('f-name').style.borderColor = name ? '' : 'var(--red)';
+      document.getElementById('f-email').style.borderColor = email ? '' : 'var(--red)';
+      return;
+    }
+    answers['name'] = name;
+    answers['company'] = document.getElementById('f-company').value.trim();
+    answers['email'] = email;
+
+    // Build summary
+    const roleMap = { manufacturer:'Pharmaceutical Manufacturer', distributor:'Distributor / Wholesaler', pharmacy:'Pharmacy / Hospital Chain', regulator:'Regulatory Body', other:'Other Healthcare Org' };
+    const sizeMap = { small:'Small (<50 staff)', mid:'Mid-size (50–500)', large:'Large (500–5k)', enterprise:'Enterprise / Multinational' };
+    const geoMap  = { africa:'Africa', asia:'Asia / Southeast Asia', europe:'Europe', americas:'Americas', global:'Global / Multi-region' };
+    const featMap = { verification:'Real-time verification', dashboard:'Chain-of-custody dashboard', alerts:'Counterfeit alerts', analytics:'Analytics & reporting', patient:'Patient mobile app' };
+    const timeMap = { asap:'As soon as possible', '3months':'Within 3 months', '6months':'Within 6 months', exploring:'Still exploring' };
+
+    const challenges = [...document.querySelectorAll('#q3 .q-opt.selected')].map(o => o.querySelector('span').textContent).join(', ') || 'Not specified';
+
+    document.getElementById('summary-box').innerHTML = `<p>
+      <strong>Name:</strong> ${name}<br>
+      <strong>Company:</strong> ${answers.company || '—'}<br>
+      <strong>Email:</strong> ${email}<br>
+      <strong>Organisation type:</strong> ${roleMap[answers.q1] || '—'}<br>
+      <strong>Size:</strong> ${sizeMap[answers.q2] || '—'}<br>
+      <strong>Challenges:</strong> ${challenges}<br>
+      <strong>Region:</strong> ${geoMap[answers.q4] || '—'}<br>
+      <strong>Priority feature:</strong> ${featMap[answers.q5] || '—'}<br>
+      <strong>Timeline:</strong> ${timeMap[answers.q6] || '—'}
+    </p>`;
+
+    goTo(8);
+    document.getElementById('prog-bar').style.width = '100%';
+  }
+</script>
+</body>
+</html>
